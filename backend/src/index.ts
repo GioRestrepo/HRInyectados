@@ -3,8 +3,10 @@ import morgan from "morgan";
 import cors from "cors";
 
 import indexRoutes from "./routes/indexRoutes";
-import gamesRoutes from "./routes/gamesRoutes";
+import usuariosRoutes from "./routes/usuariosRoutes";
 import database from "./database";
+
+import Usuario from "./models/usuariosModel";
 
 class Server {
 
@@ -20,12 +22,12 @@ class Server {
           this.app.set("port", process.env.PORT || 3000);
           this.app.use(morgan("dev"));
           this.app.use(cors());
+          this.app.use(express.json())
           this.app.use(express.urlencoded({extended: false}));   
     }
     routes(): void{
         this.app.use("/", indexRoutes);
-        this.app.use("/api/games", gamesRoutes);
-        this.app.use("/api/usuarios", gamesRoutes)
+        this.app.use("/api/usuarios", usuariosRoutes)
     }
 
     start(): void{
@@ -33,6 +35,7 @@ class Server {
             console.log("SERVER ON PORT", this.app.get("port"));
         })
         database.dbConnection();
+        Usuario
     }
 }
 
