@@ -2,8 +2,8 @@ export default {
     database: {
         host: "localhost",
         user: "root",
-        password: "sss",
-        database: "ng_games",
+        password: "",
+        database: "ventas_inyectados",
         port: "3306"
     }
 }
