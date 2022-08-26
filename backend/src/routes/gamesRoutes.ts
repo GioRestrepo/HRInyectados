@@ -10,11 +10,11 @@ class GamesRoutes {
     }
 
     config(): void{
-        this.router.get("/", gamecontroller.list );
-        this.router.get("/:id", gamecontroller.getOne);
-        this.router.post("/", gamecontroller.create);
-        this.router.put("/", gamecontroller.update);
-        this.router.delete("/:id", gamecontroller.delate)
+        // this.router.get("/", gamecontroller.list );
+        // this.router.get("/:id", gamecontroller.getOne);
+        // this.router.post("/", gamecontroller.create);
+        // this.router.put("/", gamecontroller.update);
+        // this.router.delete("/:id", gamecontroller.delate)
     }
 }
 

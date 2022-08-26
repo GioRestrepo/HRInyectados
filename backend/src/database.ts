@@ -1,41 +1,44 @@
-import mysql from "mysql2";
-//const {promisify} = require("util");
+const { Sequelize } = require('sequelize');
 const keys = require("./keys");
 
-const pool = mysql.createPool(keys);
+const dbConnection = async () => {
+  const sequelize = new Sequelize('ventas_inyectados', 'root', '', {
+    host: 'localhost',
+    dialect: 'mariadb',
+    logging: false,                        // Disables logging
+  });
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
 
+class Database {
+    
+  public sequelize: any;
 
-pool.getConnection(function(err,conn){
-    console.log('DB is conected')
-// Connection is automatically released when query resolves
-});
-
-/*  pool.getConnection()
-    .then(connection => {
-        pool.releaseConnection(connection);
-        console.log('DB is Connected');
+  constructor(){
+    this.sequelize = new Sequelize('ventas_inyectados', 'root', '', {
+      host: 'localhost',
+      dialect: 'mariadb',
+      logging: false,                        // Disables logging
     });
-  */
+  }
 
-
-/* pool.getConnection((err, connection) => {
-    if (err){
-        if (err.code === "PROTOCOL_CONNECTION_LOST"){
-            console.error("DATABASE CONNECTION WAS CLOSED");
-        }
-        if (err.code === "ER_CON_COUNT_ERROR"){
-            console.error("DATABASE HAS TO MANY CONNECTION");
-        }
-        if (err.code === "ECONNREFUSED"){
-           console.error("DATABASE CONNECTION WAS REFUSED");   
-        }
+  public async dbConnection(): Promise<void>{
+    try {
+      await this.sequelize.authenticate();
+      console.log('Connection has been established successfully.');
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
     }
+  }
 
-    if(connection) connection.release();
-    console.log("DB IS CONNECTED");
-    return;
-})  */
+  public getSequelize(): any{
+    return this.sequelize;
+  }
+}
 
-//pool.query = promisify(pool.query);
-
-export default pool;
+export default new Database;

@@ -4,6 +4,7 @@ import cors from "cors";
 
 import indexRoutes from "./routes/indexRoutes";
 import gamesRoutes from "./routes/gamesRoutes";
+import database from "./database";
 
 class Server {
 
@@ -16,10 +17,10 @@ class Server {
     }
 
     config(): void{
-         this.app.set("port", process.env.PORT || 3000);
-         this.app.use(morgan("dev"));
-         this.app.use(cors());
-         this.app.use(express.urlencoded({extended: false}));   
+          this.app.set("port", process.env.PORT || 3000);
+          this.app.use(morgan("dev"));
+          this.app.use(cors());
+          this.app.use(express.urlencoded({extended: false}));   
     }
     routes(): void{
         this.app.use("/", indexRoutes);
@@ -30,10 +31,9 @@ class Server {
     start(): void{
         this.app.listen(this.app.get("port"), ()=>{
             console.log("SERVER ON PORT", this.app.get("port"));
-            
         })
+        database.dbConnection();
     }
-
 }
 
 const server = new Server();
