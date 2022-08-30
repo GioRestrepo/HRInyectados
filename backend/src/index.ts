@@ -4,6 +4,12 @@ import cors from "cors";
 
 import indexRoutes from "./routes/indexRoutes";
 import gamesRoutes from "./routes/gamesRoutes";
+import usuariosRoutes from "./routes/usuariosRoutes";
+import clientesRoutes from "./routes/clientesRoutes";
+import bodegasRoutes from "./routes/bodegaRoutes";
+import productosRoutes from "./routes/productosRoutes";
+import ventasRoutes from "./routes/ventasRoutes";
+
 import database from "./database";
 
 class Server {
@@ -25,7 +31,11 @@ class Server {
     routes(): void{
         this.app.use("/", indexRoutes);
         this.app.use("/api/games", gamesRoutes);
-        this.app.use("/api/usuarios", gamesRoutes)
+        this.app.use("/api/usuarios", usuariosRoutes);
+        this.app.use("/api/clientes", clientesRoutes);
+        this.app.use("/api/bodegas", bodegasRoutes);
+        this.app.use("/api/productos", productosRoutes);
+        this.app.use("/api/ventas", ventasRoutes);
     }
 
     start(): void{

@@ -17,6 +17,6 @@ class UsuariosRoutes {
     }
 }
 
-const usuarioRoutes = new UsuariosRoutes();
+const usuariosRoutes = new UsuariosRoutes();
 
-export default usuarioRoutes.router;  
+export default usuariosRoutes.router;  
