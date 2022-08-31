@@ -25,7 +25,7 @@ const doModelSync = async () =>{
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,

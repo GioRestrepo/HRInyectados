@@ -43,7 +43,6 @@ class Server {
             console.log("SERVER ON PORT", this.app.get("port"));
         })
         database.dbConnection();
-        Usuario
     }
 }
 
