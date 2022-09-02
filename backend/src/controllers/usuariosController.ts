@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Op } from "sequelize";
 import UsuarioModel from "../models/usuariosModel";
 
 class UsuariosController {
@@ -11,7 +12,10 @@ class UsuariosController {
       req.params["id"] != undefined
         ? await UsuarioModel.findAll({
             where: {
-              email: req.params["id"],
+              [Op.or]: [
+                {id: req.params["id"]},
+                {email: req.params["id"]}
+              ]
             },
           })
         : await UsuarioModel.findAll();
