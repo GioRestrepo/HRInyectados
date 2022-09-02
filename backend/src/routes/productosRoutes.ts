@@ -12,7 +12,7 @@ class ProductosRoutes {
     config(): void{
         this.router.get("/:id?", productosController.read ); 
         this.router.post("/", productosController.create);
-        this.router.put("/", productosController.update);
+        this.router.put("/:id", productosController.update);
         this.router.delete("/:id", productosController.delete)
     }
 }
