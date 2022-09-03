@@ -9,6 +9,8 @@ class Usuario extends Model {
   public email: any;
   public nombre: any;
   public apellidos: any;
+  public createdAt: any;
+  public updatedAt: any;
 
   public getFullname() {
     return [this.nombre, this.apellidos].join(' ');

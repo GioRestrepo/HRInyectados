@@ -1,5 +1,6 @@
 import { Router } from "express";
 import usuariosController from "../controllers/usuariosController"
+import auth from "../middleware/auth"
 
 class UsuariosRoutes {
     
@@ -10,11 +11,11 @@ class UsuariosRoutes {
     }
 
     config(): void{
-        this.router.get("/:id?", usuariosController.read ); 
+        this.router.get("/", auth, usuariosController.read ); 
         this.router.post("/", usuariosController.create);
         this.router.post("/login", usuariosController.login);
-        this.router.put("/:id", usuariosController.update);
-        this.router.delete("/:id", usuariosController.delete)
+        this.router.put("/", auth, usuariosController.update);
+        this.router.delete("/", auth, usuariosController.delete)
     }
 }
 

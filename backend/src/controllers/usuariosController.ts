@@ -6,25 +6,28 @@ import bcrypt from "bcrypt";
 class UsuariosController {
   public async read(
     req: Request,
-    res: Response,
-    next: any
+    res: Response
   ): Promise<Response<any, Record<string, any>>> {
-    let usuarios =
-      req.params["id"] != undefined
-        ? await UsuarioModel.findAll({
+    let usuario = await UsuarioModel.findOne({
             where: {
               [Op.or]: [
-                {id: req.params["id"]},
-                {email: req.params["id"]}
+                {id: req.body.payload.id},
+                {email: req.body.payload.email}
               ]
             },
-          })
-        : await UsuarioModel.findAll();
-    if (!usuarios || usuarios.length == 0)
+          });
+    if (!usuario)
       return res
         .status(500)
         .send("Ha ocurrido un error al consultar los usuarios");
-    return res.status(200).send(usuarios);
+    return res.status(200).send({
+      id: usuario.id,
+      nombre: usuario.nombre,
+      apellidos: usuario.apellidos,
+      email: usuario.email,
+      createdAt: usuario.createdAt,
+      updatedAt: usuario.updatedAt
+    });
   }
 
   public async login(
@@ -99,25 +102,27 @@ class UsuariosController {
       !req.body.nombre ||
       !req.body.apellidos ||
       !req.body.email ||
-      !req.body.password ||
-      !req.params["id"]
+      !req.body.password
     )
       return res.status(400).send("Todos los campos son obligatorios");
 
-    let usuarioExistente = await UsuarioModel.findAll({
+    let usuarioExistente = await UsuarioModel.findOne({
       where: {
-        id: req.params["id"],
+        id: req.body.payload.id,
       },
     });
-    if (!usuarioExistente || usuarioExistente.length == 0)
+    console.log(usuarioExistente);
+    
+    if (!usuarioExistente)
       return res.status(400).send("El usuario indicado no existe");
 
-    let user = usuarioExistente[0];
+    let hash = await bcrypt.hash(req.body.password, 10);
+    let user = usuarioExistente;
     user.set({
       nombre: req.body.nombre,
       apellidos: req.body.apellidos,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     });
 
     try {
@@ -129,26 +134,28 @@ class UsuariosController {
         .send("Ha ocurrido un error al guardar en la base de datos");
     }
 
-    return res.status(201).send(user);
+    return res.status(201).send({
+      id: user.id,
+      nombre: user.nombre,
+      apellidos: user.apellidos,
+      email: user.email,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    });
   }
   public async delete(
     req: Request,
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
-    if (!req.params["id"])
-      return res
-        .status(400)
-        .send("El id del usuario a eliminar es obligatorio");
-
-    let usuarioExistente = await UsuarioModel.findAll({
+    let usuarioExistente = await UsuarioModel.findOne({
       where: {
-        id: req.params["id"],
+        id: req.body.payload.id,
       },
     });
-    if (!usuarioExistente || usuarioExistente.length == 0)
+    if (!usuarioExistente)
       return res.status(400).send("El usuario indicado no existe");
 
-    const user = usuarioExistente[0];
+    const user = usuarioExistente;
 
     try {
       await user.destroy();
