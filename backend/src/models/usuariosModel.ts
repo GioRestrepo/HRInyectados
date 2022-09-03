@@ -1,10 +1,29 @@
 import sequelizeDb from "../database";
 import { DataTypes, Model } from 'sequelize';
+import jwt from "jsonwebtoken";
+import moment from "moment";
 const sequelize = sequelizeDb.getSequelize();
+import keys from "../keys";
 class Usuario extends Model {
-  // getFullname() {
-  //   return [this.nombre, this.apellidos].join(' ');
-  // }
+  public id: any;
+  public email: any;
+  public nombre: any;
+  public apellidos: any;
+
+  public getFullname() {
+    return [this.nombre, this.apellidos].join(' ');
+  }
+
+  public generateJwt(): any {
+    return jwt.sign({
+      id: this.id,
+      email: this.email,
+      fullName: `${this.nombre} ${this.apellidos}`,
+      iat: moment().unix(),
+    },
+    keys.secretsWords.SECRET_KEY_JWT
+    )
+  }
 }
 
 const doModelSync = async () =>{

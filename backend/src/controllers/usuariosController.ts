@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
 import UsuarioModel from "../models/usuariosModel";
+import bcrypt from "bcrypt";
 
 class UsuariosController {
   public async read(
@@ -26,6 +27,33 @@ class UsuariosController {
     return res.status(200).send(usuarios);
   }
 
+  public async login(
+    req: Request,
+    res: Response
+  ): Promise<Response<any, Record<string, any>>>{
+    if(!req.body.email || !req.body.password)
+      return res.status(400).send("Debes enviar todos los campos correctamente");
+
+    let user = await UsuarioModel.findOne({ 
+      where:{
+        email: req.body.email
+      }
+    });
+    if (!user) return res.status(400).send("Wrong email or password");
+    
+    //if (!user.dbStatus) return res.status(400).send("Wrong email or password");
+    
+    let hash = await bcrypt.compare(req.body.password, user.getDataValue('password'));
+    if (!hash) return res.status(400).send("Wrong email or password");
+    
+    try {
+      let jwtToken = user.generateJwt();
+      return res.status(200).send({ jwtToken });
+    } catch (e) {
+      return res.status(400).send("Login error");
+    }
+  }
+
   public async create(
     req: Request,
     res: Response
@@ -38,11 +66,13 @@ class UsuariosController {
     )
       return res.status(400).send("Todos los campos son obligatorios");
 
+    let hash = await bcrypt.hash(req.body.password, 10);
+
     let user = UsuarioModel.build({
       nombre: req.body.nombre,
       apellidos: req.body.apellidos,
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
     });
 
     try {
@@ -54,7 +84,12 @@ class UsuariosController {
         .send("Ha ocurrido un error al guardar en la base de datos");
     }
 
-    return res.status(201).send(user);
+    return res.status(201).send({
+      id: user.id,
+      nombre: user.nombre,
+      apellidos: user.apellidos,
+      email: user.email
+    });
   }
   public async update(
     req: Request,

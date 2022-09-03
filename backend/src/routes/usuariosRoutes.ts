@@ -12,6 +12,7 @@ class UsuariosRoutes {
     config(): void{
         this.router.get("/:id?", usuariosController.read ); 
         this.router.post("/", usuariosController.create);
+        this.router.post("/login", usuariosController.login);
         this.router.put("/:id", usuariosController.update);
         this.router.delete("/:id", usuariosController.delete)
     }
