@@ -10,8 +10,6 @@ import productosRoutes from "./routes/productosRoutes";
 import ventasRoutes from "./routes/ventasRoutes";
 import database from "./database";
 
-import Usuario from "./models/usuariosModel";
-
 class Server {
 
     public app: Application;

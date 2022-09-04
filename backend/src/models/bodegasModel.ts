@@ -3,9 +3,8 @@ import { DataTypes, Model } from 'sequelize';
 const sequelize = sequelizeDb.getSequelize();
 
 class Bodegas extends Model {
-    // getFullname() {
-    //   return [this.nombre, this.apellidos].join(' ');
-    // }
+    id: any;
+    nombre: any;
   }
   
   const doModelSync = async () =>{

@@ -3,9 +3,9 @@ import { DataTypes, Model } from 'sequelize';
 const sequelize = sequelizeDb.getSequelize();
 
 class Productos extends Model {
-    // getFullname() {
-    //   return [this.nombre, this.apellidos].join(' ');
-    // }
+  id: any;
+  nombre: any;
+  valor: any;
   }
   
   const doModelSync = async () =>{
