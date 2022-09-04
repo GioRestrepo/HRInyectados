@@ -69,6 +69,13 @@ class UsuariosController {
     )
       return res.status(400).send("Todos los campos son obligatorios");
 
+    let tempUser =  await UsuarioModel.findOne({
+      where: {
+        email: req.body.email
+      }
+    });
+    if(!!tempUser) return res.status(400).send("El usuario indicado ya se encuetra registrado");
+
     let hash = await bcrypt.hash(req.body.password, 10);
 
     let user = UsuarioModel.build({
