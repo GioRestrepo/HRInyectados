@@ -10,9 +10,9 @@ class ClientesRoutes {
     }
 
     config(): void{
-        this.router.get("/", clientesController.read ); 
+        this.router.get("/:id?", clientesController.read ); 
         this.router.post("/", clientesController.create);
-        this.router.put("/", clientesController.update);
+        this.router.put("/:id", clientesController.update);
         this.router.delete("/:id", clientesController.delete)
     }
 }

@@ -10,9 +10,9 @@ class BodegaRoutes {
     }
 
     config(): void{
-        this.router.get("/", bodegaController.read ); 
+        this.router.get("/:id?", bodegaController.read ); 
         this.router.post("/", bodegaController.create);
-        this.router.put("/", bodegaController.update);
+        this.router.put("/:id", bodegaController.update);
         this.router.delete("/:id", bodegaController.delete)
     }
 }

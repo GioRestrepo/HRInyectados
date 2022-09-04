@@ -9,7 +9,7 @@ class ClientesController {
       req.params["id"] != undefined
         ? await ClienteModel.findAll({
             where: {
-              [Op.and]: [
+              [Op.or]: [
                 {id: req.params["id"]},
                 {nombre: req.params["id"]},
                 {documento: req.params["id"]}
@@ -115,7 +115,7 @@ class ClientesController {
     } catch (error) {
       return res.send(500).send("Ha ocurrido un error al eliminar el cliente");
     }
-    return res.status(200).send("producto cliente"); 
+    return res.status(200).send("cliente eliminado"); 
     }
     
 }
