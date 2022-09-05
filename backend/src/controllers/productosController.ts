@@ -9,18 +9,64 @@ class ProductosController {
     req: Request,
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
-    let productos =
-      req.params["id"] != undefined
-        ? await ProductosModel.findAll({
-            where: {
-              [Op.or]: [{ id: req.params["id"] }, { nombre: req.params["id"] }],
+    let productos;
+
+    if(req.params["id"] != undefined){
+      try {
+        productos = await ProductoBodega.findAll({
+          include: [
+            {
+              model: ProductosModel,
+              //as: "producto",
+              where: {
+                idProd: Sequelize.col('producto.id')
+              }
             },
-          })
-        : await ProductosModel.findAll();
-    if (!productos || productos.length == 0)
+            {
+              model: Bodegas,
+              //as: "Bodega",
+              where: {
+                idBod: Sequelize.col('Bodega.id')
+              }
+            }
+          ],
+          where: {
+            idProd: req.params["id"] 
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        productos = await ProductoBodega.findAll({
+          include: [
+            {
+              model: ProductosModel,
+              //as: "producto",
+              where: {
+                idProd: Sequelize.col('producto.id')
+              }
+            },
+            {
+              model: Bodegas,
+              //as: "Bodega",
+              where: {
+                idBod: Sequelize.col('Bodega.id')
+              }
+            }
+          ],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (!productos)
       return res
         .status(500)
         .send("Ha ocurrido un error al consultar los productos");
+
     return res.status(200).send(productos);
   }
 

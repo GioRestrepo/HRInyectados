@@ -37,6 +37,18 @@ class ProductoBodega extends Model {
         modelName: 'detalle_bodega' // We need to choose the model name
       });
       
+      ProductoBodega.belongsTo(Bodegas, {
+        foreignKey: "idBod"
+      })
+      ProductoBodega.belongsTo(Productos, {
+        foreignKey: "idProd"
+      })
+      Productos.hasMany(ProductoBodega, {
+        foreignKey: "idProd"
+      });
+      Bodegas.hasMany(ProductoBodega, {
+        foreignKey: "idBod"
+      });
       await ProductoBodega.sync();
     } catch (error) {
       console.log(`Error Tabla productos: ${error}`);    
