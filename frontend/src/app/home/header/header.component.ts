@@ -11,5 +11,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  tokenExist(){
+    let token = localStorage.getItem("token");
+    return token == undefined ? true : false;
+  }
+  salir(){
+    localStorage.removeItem('token');
+  }
 }

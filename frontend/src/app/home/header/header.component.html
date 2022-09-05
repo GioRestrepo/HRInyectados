@@ -1,31 +1,69 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">HR Inyectados</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Productos
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="ProductoCrear.html">Crear Producto</a></li>
+            <li><a class="dropdown-item" href="ProductoConsultar.html">Consultar Producto</a></li>
+            <li><a class="dropdown-item" href="ProductoActualizar.html">Actualizar Producto</a></li>
+            <li><a class="dropdown-item" href="ProductoEliminar.html">Eliminar Producto</a></li>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clientes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="ClienteCrear.html">Crear Cliente</a></li>
+            <li><a class="dropdown-item" href="ClienteConsultar.html">Consultar Cliente</a></li>
+            <li><a class="dropdown-item" href="ClienteActualizar.html">Actualizar Cliente</a></li>
+            <li><a class="dropdown-item" href="ClienteEliminar.html">Eliminar Cliente</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Bodegas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="BodegaCrear.html">Crear Bodega</a></li>
+            <li><a class="dropdown-item" href="BodegaConsultar.html">Consultar Bodega</a></li>
+            <li><a class="dropdown-item" href="BodegaActualizar.html">Actualizar Bodega</a></li>
+            <li><a class="dropdown-item" href="BodegaEliminar.html">Eliminar Bodega</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ventas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="VentaCrear.html">Crear Venta</a></li>
+            <li><a class="dropdown-item" href="VentaConsultar.html">Consultar Venta</a></li>
+            <li><a class="dropdown-item" href="VentaActualizar.html">Actualizar Venta</a></li>
+            <li><a class="dropdown-item" href="VentaEliminar.html">Eliminar Venta</a></li>
+          </ul>
+        </li>
+
       </ul>
+      <span class="navbar-text">
+        <a class="mx-2 nav-link" *ngIf="!tokenExist()" routerLink="view-user">Opciones de Usuario</a>
+      </span>
+      <span class="navbar-text" *ngIf="tokenExist()">
+        <a class="m-1 nav-link" routerLink="login">Iniciar Sesión</a>
+      </span>
+      <span class="m-1 navbar-text" *ngIf="tokenExist()">
+        <a class="nav-link" routerLink="create-user">Registrarse</a>
+      </span>
+      <span class="m-1 navbar-text" *ngIf="!tokenExist()">
+        <a class="nav-link" (click)="salir()" routerLink="login">Salir</a>
+      </span>
     </div>
   </div>
 </nav>

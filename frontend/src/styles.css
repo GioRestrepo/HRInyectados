@@ -1,4 +1,92 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image: url(assets/20512813.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.style-snackBarTrue {
+  background-color: #568003;
+  color: #fff;
+}
+
+.style-snackBarFalse {
+  background-color: #d15115;
+  color: #fff;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* para que al ancho ocupe tanto el border como el padding */
+  
+}
+.form {
+  width: 400px;
+  background-color: #24303c;
+  padding: 30px;
+  margin: auto; /* para que este centrado arriba */
+  margin-top: 100px; /* para bajarlo a la mitad de la página */
+  margin-bottom: 100px;
+  border-radius: 4px;
+  font-family: "calibri";
+  color: white;
+  box-shadow: 7px 13px 37px #000;
+}
+
+.form h4 {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.controls {
+  width: 100%;
+  background-color: #24303c;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #1f53c5;
+  font-family: "calibri";
+  font-size: 18px;
+  color: white;
+}
+
+.form p {
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.form a {
+  color: white;
+  text-decoration: none;
+}
+
+.form-register a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.botons {
+  width: 100%;
+  background: #1f53c5;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin: 16px 0;
+  font-size: 16px;
+}
+
+.botons:hover {
+  color: black;
+  text-decoration: underline;
+}

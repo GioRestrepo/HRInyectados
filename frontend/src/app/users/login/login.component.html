@@ -1,1 +1,21 @@
-<p>login works!</p>
+<section class="form">
+  <h4>Iniciar Sesión</h4>
+  <input
+    class="controls"
+    type="email"
+    name="Correo"
+    id="Correo"
+    placeholder="Ingrese su correo"
+    [(ngModel)]="data.email"
+  />
+  <input
+    class="controls"
+    type="password"
+    name="Contraseña"
+    id="Contraseña"
+    placeholder="Ingrese su contraseña"
+    [(ngModel)]="data.password"
+  />
+
+  <input class="botons" type="submit" value="Iniciar Sesión" (click)="loggear()" />
+</section>

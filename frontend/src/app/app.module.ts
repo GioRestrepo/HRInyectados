@@ -15,6 +15,15 @@ import { ListSalesComponent } from './sales/list-sales/list-sales.component';
 
 import { CreateSaleComponent } from './sales/create-sale/create-sale.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+//material
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+//services
+import { UsersService } from './services/users.service';
+import { UtilService } from './services/util.service';
 
 @NgModule({
   declarations: [
@@ -28,14 +37,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CreateWarehousesComponent,
     ListWarehousesComponent,
     ListSalesComponent,
-    CreateSaleComponent
+    CreateSaleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [UsersService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
