@@ -10,9 +10,9 @@ class VentasRoutes {
     }
 
     config(): void{
-        this.router.get("/", ventasController.read ); 
+        this.router.get("/:id?", ventasController.read ); 
         this.router.post("/", ventasController.create);
-        this.router.put("/", ventasController.update);
+        this.router.put("/:id", ventasController.update);
         this.router.delete("/:id", ventasController.delete)
     }
 }
