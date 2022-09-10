@@ -4,7 +4,9 @@ const sequelize = sequelizeDb.getSequelize();
 class Cliente extends Model {
   id: any;
   nombre: any;
-  
+  apellidos: any;
+  email: any;
+  documento: any;
 }
 
 const doModelSync = async () =>{

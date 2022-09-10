@@ -1,4 +1,6 @@
-import {Request, Response, text} from "express";
+import { Request, Response, text } from "express";
+import sequelizeDb from "../database";
+const sequelize = sequelizeDb.getSequelize();
 import { Op, Sequelize } from "sequelize";
 import VentaModel from "../models/ventasModel";
 import ProductosModel from "../models/productosModel";
@@ -7,209 +9,184 @@ import ClienteModel from "../models/clientesModel";
 import Usuario from "../models/usuariosModel";
 
 class VentasController {
-    public async read(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
-        let ventas;
-        if(req.params["id"] != undefined){
-          try {
-            ventas = await VentaProducto.findAll({
-              include: [
-                {
-                  model: ProductosModel,
+  public async read(
+    req: Request,
+    res: Response
+  ): Promise<Response<any, Record<string, any>>> {
+    // let ventas;
+    // if (req.params["id"] != undefined) {
+    //   try {
+    //     ventas = await VentaProducto.findAll({
+    //       include: [
+    //         {
+    //           model: ProductosModel,
 
-                  where: {
-                    idProd: Sequelize.col("producto.id")
-                  }
-                },
-                {
-                  model: VentaModel,
-                  
-                  where: {
-                    idVent: Sequelize.col("Venta.id")
-                  }
-                },
-                {
-                  model: ClienteModel,
-                  
-                  where: {
-                    idCli: Sequelize.col("Cliente.id")
-                  }
-                }
-              ],
-              where: {
-                idVent: req.params["id"]
-              }
-            })
-          } catch (error) {
-            console.log(error);
-            }
-          }else{
-              try {
-                ventas = await VentaProducto.findAll({
-                  include: [
-                    {
-                      model: ProductosModel,
+    //           where: {
+    //             idProd: Sequelize.col("producto.id"),
+    //           },
+    //         },
+    //         {
+    //           model: VentaModel,
+
+    //           where: {
+    //             idVent: Sequelize.col("Venta.id"),
+    //           }
+    //         },
+    //         // {
+    //         //   model: ClienteModel,
+
+    //         //   where: {
+    //         //     idCli: Sequelize.col("Cliente.id"),
+    //         //   },
+    //         // },
+    //       ],
+    //       where: {
+    //         idVent: req.params["id"],
+    //       },
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // } else {
+    //   try {
+    //     ventas = await VentaProducto.findAll({
+    //       include: [
+    //         {
+    //           model: ProductosModel,
+
+    //           where: {
+    //             idProd: Sequelize.col("producto.id"),
+    //           },
+    //         },
+    //         {
+    //           model: VentaModel,
+
+    //           where: {
+    //             idVent: Sequelize.col("Venta.id"),
+    //           },
+    //         },
+    //         // {
+    //         //   model: ClienteModel,
+
+    //         //   where: {
+    //         //     idCli: Sequelize.col("Cliente.id"),
+    //         //   },
+    //         // },
+    //       ],
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+
+    // if (!ventas)
+    //   return res.status(500).send("Ha ocurrido un error al consultar la venta");
+
+    let ventas, metadata;
+    try {
+      [ventas, metadata] = await sequelize.query(`
+    select VP.idVent, VP.idProd, P.nombre as nomProd, P.valor, V.idCli, C.nombre as nomCli, C.apellidos from venta_products VP
+    inner join ventas V on V.id = VP.idVent
+    inner join productos P on P.id = VP.idProd
+    inner join clientes C on C.id = V.idCli
+    ${
+      req.params["id"] != null  
+        ? 'where C.id = ' + req.params["id"]
+        : ''
+    };
+    `);
+    } catch (error) {
+      return res.status(500).send("ha ocurrido un error al consultar las ventas")
+    }
+
     
-                      where: {
-                        idProd: Sequelize.col("producto.id")
-                      }
-                    },
-                    {
-                      model: VentaModel,
-                      
-                      where: {
-                        idVent: Sequelize.col("Venta.id")
-                      }
-                    },
-                    {
-                      model: ClienteModel,
-                      
-                      where: {
-                        idCli: Sequelize.col("Cliente.id")
-                      }
-                    } 
-                  ],
-                })
-            } catch (error) {
-              console.log(error);
-            }
-          }
-       
-      if(!ventas)
-        return res
-          .status(500)
-          .send("Ha ocurrido un error al consultar la venta");
-      return res.status(200).send(ventas);
 
+    return res.status(200).send(ventas);
+  }
+
+  public async create(
+    req: Request,
+    res: Response
+  ): Promise<Response<any, Record<string, any>>> {
+    if (!req.body.idCli || !req.body.items || req.body.items.length == 0)
+      return res.status(400).send("Todos los campos son obligatorios");
+
+    let tempClient = await ClienteModel.findOne({
+      where: {
+        id: req.body.idCli,
+      },
+    });
+
+    if (!tempClient)
+      return res.status(400).send("El cliente indicado no existe");
+
+    let venta = VentaModel.build({
+      idCli: req.body.idCli,
+    });
+
+    let productos = await ProductosModel.findAll();
+
+    if (!productos || productos.length == 0)
+      return res.status(400).send("No se encontro ningun producto registrado");
+
+    let selectedProducts = productos.filter((product) => {
+      let tempProd = null;
+      req.body.items.forEach((item: any) => {
+        if (item.id == product.id) {
+          tempProd = product;
+        }
+      });
+      return tempProd != null;
+    });
+
+    if (req.body.items.length != selectedProducts.length)
+      return res.status(400).send("Uno de los productos indicados no existe");
+
+    try {
+      await venta.save();
+      console.log("venta almacenada"); // !to delete
+      for (let i = 0; i < selectedProducts.length; i++) {
+        await VentaProducto.create({
+          idVent: venta.id,
+          idProd: selectedProducts[i].id,
+        });
+      }
+      console.log("venta_producto, creada!"); // ! to delete
+    } catch (error) {
+      return res
+        .status(500)
+        .send("Ha ocurrido un error al guardar en la base de datos");
     }
-    
-    public async create (req: Request, res: Response): Promise<Response<any, Record<string, any>>>{
-        if (
-            !req.body.total ||
-            !req.body.idProd ||
-            !req.body.idCli 
-          )
-            return res.status(400).send("Todos los campos son obligatorios");
-      
-          let venta = VentaModel.build({
-            total: req.body.total
-          });
 
-          let producto = await ProductosModel.findOne({
-            where: {
-              id: req.body.idProd
-            }
-          })
-          console.log(producto);
+    let total = 0;
+    selectedProducts.forEach((product) => {
+      total += product.valor;
+    });
 
-          if (!producto) return res.status(400).send("El producto indicado no existe");
+    return res.status(200).send({
+      cliente: {
+        id: tempClient.id,
+        nombre: tempClient.nombre,
+        apellidos: tempClient.apellidos,
+        email: tempClient.email,
+        documento: tempClient.documento,
+      },
+      items: selectedProducts,
+      total: total,
+    });
+  }
+  public async update(
+    req: Request,
+    res: Response
+  ): Promise<Response<any, Record<string, any>>> {
+    return res.send("update prod");
+  }
 
-          let cliente = await ClienteModel.findOne({
-            where: {
-              id: req.body.idCli
-          }
-        })
-
-          console.log(cliente);
-
-          if (!cliente) return res.status(400).send("El cliente indicado no existe");
-          
-          let ventaProducto;
-
-          try {
-            await venta.save();
-            ventaProducto = VentaProducto.build({
-              idVent: venta.getDataValue("id"),
-              idProd: req.body.idProd,
-              idCli: req.body.idCli,
-              nombre: req.body.nombre,
-              total: req.body.total
-            });
-            await ventaProducto.save();
-          } catch (error) {
-            console.log(error);
-            return res
-              .status(500)
-              .send("Ha ocurrido un error al guardar en la base de datos");
-          }
-      
-          return res.status(201).send({
-            id: venta.id,
-            total: venta.total,
-            cliente: {
-              id: cliente.id,
-              nombre: cliente.nombre
-
-            }
-          });
-        
-    }
-    public async update (req: Request, res: Response): Promise<Response<any, Record<string, any>>>{
-        if (
-          !req.body.nombre ||
-          !req.body.apellidos ||
-          !req.body.email ||
-          !req.body.telefono ||
-          !req.body.documento ||
-          !req.body.total ||
-          !req.params["id"]
-          )
-            return res.status(400).send("Todos los campos son obligatorios");
-      
-          let ventaExistente = await VentaModel.findAll({
-            where: {
-              id: req.params["id"],
-            },
-          });
-          if (!ventaExistente || ventaExistente.length == 0)
-            return res.status(400).send("La venta indicada no existe");
-      
-          let producto = await ProductosModel.findOne({
-             where: {
-               id: req.query.idProd 
-             }
-          });
-          if (!producto) return res.status(400).send("El producto indicado no existe");
-
-          let venta = ventaExistente[0];
-          venta.set({
-            total: req.body.total 
-          })
-
-          let ventaProduto = await VentaProducto.findOne({
-            where: {
-              idVent: req.params["id"]
-            }
-          });
-          if (!ventaProduto)
-           return res
-            .status(400)
-            .send("La venta indicada no existe")
-      
-          try {
-            await venta.save();
-            ventaProduto.set({
-              idVent: venta.getDataValue("id"),
-              idProd: req.body.idProd
-            });
-            await ventaProduto.save();
-          } catch (error) {
-            console.log(error);
-            return res
-              .status(500)
-              .send("Ha ocurrido un error al guardar en la base de datos");
-          }
-      
-          return res.status(201).send({
-            id: venta.id,
-            total: venta.total,
-            producto: {
-              id: producto.id,
-              nombre: producto.nombre
-            } 
-          });
-    }
-    public async delete (req: Request, res: Response): Promise<Response<any, Record<string, any>>>{
-        if (!req.params["id"])
+  public async delete(
+    req: Request,
+    res: Response
+  ): Promise<Response<any, Record<string, any>>> {
+    if (!req.params["id"])
       return res
         .status(400)
         .send("El id de la venta a eliminar es obligatorio");
@@ -229,11 +206,10 @@ class VentasController {
     } catch (error) {
       return res.send(500).send("Ha ocurrido un error al eliminar la venta");
     }
-    return res.status(200).send("venta eliminada"); 
-    }
-    
+    return res.status(200).send("venta eliminada");
+  }
 }
 
 const ventasController = new VentasController();
 
-export default ventasController; 
+export default ventasController;

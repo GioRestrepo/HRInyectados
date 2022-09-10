@@ -4,6 +4,7 @@ const sequelize = sequelizeDb.getSequelize();
 
 class Productos extends Model {
   id: any;
+  idProd: any;
   nombre: any;
   valor: any;
   }

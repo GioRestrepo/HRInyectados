@@ -218,3 +218,11 @@ where dv.fecha >= '2021-06-02' and v.total >= 3500000;
 select b.nombre, p.cod_prod, p.nombre, db.cantidad from detalle_bodega db 
 inner join productos p on p.cod_prod = db.cod_prod
 inner join bodega b on b.id_bod = db.id_bod;
+
+
+select VP.idVent, VP.idProd, P.nombre, P.valor, V.idCli, C.nombre, C.apellidos from venta_products VP
+inner join ventas V on V.id = VP.idVent
+inner join productos P on P.id = VP.idProd
+inner join clientes C on C.id = V.idCli;
+--where V.id = 2;
+

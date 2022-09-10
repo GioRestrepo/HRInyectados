@@ -28,7 +28,7 @@ class VentaProducto extends Model {
         }
       }, {
         sequelize, // We need to pass the connection instance
-        modelName: 'detalle_bodega' // We need to choose the model name
+        modelName: 'venta_product' // We need to choose the model name
       });
       
       VentaProducto.belongsTo(Ventas, {
