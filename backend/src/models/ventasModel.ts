@@ -4,7 +4,8 @@ const sequelize = sequelizeDb.getSequelize();
 import Cliente from "./clientesModel";
 
 class Venta extends Model {
-  
+  id: any;
+  total: any;
 }
 
 const doModelSync = async () =>{
@@ -15,7 +16,7 @@ const doModelSync = async () =>{
         autoIncrement: true,
         primaryKey: true
       },
-      id_cli: {
+      idCli: {
         type: DataTypes.INTEGER,
         references: {
             model: Cliente,
@@ -29,6 +30,13 @@ const doModelSync = async () =>{
     }, {
       sequelize, // We need to pass the connection instance
       modelName: 'Ventas' // We need to choose the model name
+    });
+    
+    Venta.belongsTo(Cliente, {
+      foreignKey: "idCli"
+    })
+    Cliente.hasMany(Venta, {
+      foreignKey: "idCli"
     });
     
     await Venta.sync();

@@ -2,6 +2,8 @@ import sequelizeDb from "../database";
 import { DataTypes, Model } from 'sequelize';
 const sequelize = sequelizeDb.getSequelize();
 class Cliente extends Model {
+  id: any;
+  nombre: any;
   
 }
 
