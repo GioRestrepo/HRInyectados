@@ -24,4 +24,14 @@ export class ListCustomerComponent implements OnInit {
       }
     );
   }
+
+  deleteCustomer(id: number){
+    //delete user
+    console.log(id);    
+  }
+
+  updateCustomer(id: number){
+    //update user
+    console.log(id);    
+  }
 }

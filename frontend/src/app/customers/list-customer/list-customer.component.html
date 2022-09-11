@@ -15,12 +15,12 @@
         <td>{{customer.email}}</td>
         <td>{{customer.documento}}</td>
         <td>
-          <button class="btn btn-primary">
+          <button class="btn btn-primary" (click)="updateCustomer(customer.id)">
             <i class="material-icons">border_color</i>
           </button>
         </td>
         <td>
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" (click)="deleteCustomer(customer.id)">
             <i class="material-icons">delete_forever</i>
           </button>
         </td>

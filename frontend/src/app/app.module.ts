@@ -33,6 +33,7 @@ import { SalesService } from './services/sales.service';
 import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
+import { MainComponent } from './home/main/main.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { UpdateCustomerComponent } from './customers/update-customer/update-cust
     ListCustomerComponent,
     CreateCustomerComponent,
     UpdateCustomerComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

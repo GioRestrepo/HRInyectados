@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
 import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
+import { MainComponent } from './home/main/main.component';
 import { CreateProductsComponent } from './products/create-products/create-products.component';
 import { ListProductsComponent } from './products/list-products/list-products.component';
 import { CreateSaleComponent } from './sales/create-sale/create-sale.component';
@@ -16,7 +17,7 @@ import { ListWarehousesComponent } from './warehouses/list-warehouses/list-wareh
 const routes: Routes = [
   {
     path: '',
-    component: ListProductsComponent,
+    component: MainComponent,
     pathMatch: 'full',
   },
   {
