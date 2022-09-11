@@ -21,6 +21,12 @@ import { HttpClientModule } from '@angular/common/http';
 //material
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 //services
 import { UsersService } from './services/users.service';
@@ -61,6 +67,10 @@ import { MainComponent } from './home/main/main.component';
     HttpClientModule,
     MatSnackBarModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     UsersService,

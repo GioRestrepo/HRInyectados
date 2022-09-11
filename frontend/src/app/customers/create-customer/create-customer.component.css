@@ -1,0 +1,18 @@
+.content{
+  align-self: center;
+  width: 20rem;
+  background-color: #24303c;
+  border-radius: 2%;
+  margin: 0 auto;
+  margin-top: 3%;
+  box-shadow: 7px 13px 37px #000;
+}
+.alignment{
+  text-align:center;
+}
+.content, mat-label, input::placeholder{
+  color: white;
+}
+button {
+  background-color: #18222c;
+}
