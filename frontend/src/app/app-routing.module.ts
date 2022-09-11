@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
+import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
 import { CreateProductsComponent } from './products/create-products/create-products.component';
 import { ListProductsComponent } from './products/list-products/list-products.component';
 import { CreateSaleComponent } from './sales/create-sale/create-sale.component';
@@ -13,7 +16,7 @@ import { ListWarehousesComponent } from './warehouses/list-warehouses/list-wareh
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: ListProductsComponent,
     pathMatch: 'full',
   },
   {
@@ -59,6 +62,21 @@ const routes: Routes = [
   {
     path: 'list-warehouses',
     component: ListWarehousesComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'list-customers',
+    component: ListCustomerComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'create-customer',
+    component: CreateCustomerComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'update-customer',
+    component: UpdateCustomerComponent,
     pathMatch: 'full',
   },
 ];

@@ -1,59 +1,116 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">HR Inyectados</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand">HR Inyectados</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" *ngIf="!tokenExist()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Productos
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="ProductoCrear.html">Crear Producto</a></li>
-            <li><a class="dropdown-item" href="ProductoConsultar.html">Consultar Producto</a></li>
-            <li><a class="dropdown-item" href="ProductoActualizar.html">Actualizar Producto</a></li>
-            <li><a class="dropdown-item" href="ProductoEliminar.html">Eliminar Producto</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="create-product"
+                >Crear Producto</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="list-products"
+                >Consultar Producto</a
+              >
+            </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" *ngIf="!tokenExist()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Clientes
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="ClienteCrear.html">Crear Cliente</a></li>
-            <li><a class="dropdown-item" href="ClienteConsultar.html">Consultar Cliente</a></li>
-            <li><a class="dropdown-item" href="ClienteActualizar.html">Actualizar Cliente</a></li>
-            <li><a class="dropdown-item" href="ClienteEliminar.html">Eliminar Cliente</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="create-customer"
+                >Crear Cliente</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="list-customers"
+                >Consultar Cliente</a
+              >
+            </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" *ngIf="!tokenExist()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Bodegas
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="BodegaCrear.html">Crear Bodega</a></li>
-            <li><a class="dropdown-item" href="BodegaConsultar.html">Consultar Bodega</a></li>
-            <li><a class="dropdown-item" href="BodegaActualizar.html">Actualizar Bodega</a></li>
-            <li><a class="dropdown-item" href="BodegaEliminar.html">Eliminar Bodega</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="create-warehouses">Crear Bodega</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="list-warehouses"
+                >Consultar Bodega</a
+              >
+            </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" *ngIf="!tokenExist()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Ventas
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="VentaCrear.html">Crear Venta</a></li>
-            <li><a class="dropdown-item" href="VentaConsultar.html">Consultar Venta</a></li>
-            <li><a class="dropdown-item" href="VentaActualizar.html">Actualizar Venta</a></li>
-            <li><a class="dropdown-item" href="VentaEliminar.html">Eliminar Venta</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="create-sale">Crear Venta</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="list-sales"
+                >Consultar Venta por cliente</a
+              >
+            </li>
           </ul>
         </li>
-
       </ul>
       <span class="navbar-text">
-        <a class="mx-2 nav-link" *ngIf="!tokenExist()" routerLink="view-user">Opciones de Usuario</a>
+        <a class="mx-2 nav-link" *ngIf="!tokenExist()" routerLink="view-user"
+          >Opciones de Usuario</a
+        >
       </span>
       <span class="navbar-text" *ngIf="tokenExist()">
         <a class="m-1 nav-link" routerLink="login">Iniciar Sesión</a>

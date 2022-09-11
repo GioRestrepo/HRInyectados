@@ -13,75 +13,6 @@ class VentasController {
     req: Request,
     res: Response
   ): Promise<Response<any, Record<string, any>>> {
-    // let ventas;
-    // if (req.params["id"] != undefined) {
-    //   try {
-    //     ventas = await VentaProducto.findAll({
-    //       include: [
-    //         {
-    //           model: ProductosModel,
-
-    //           where: {
-    //             idProd: Sequelize.col("producto.id"),
-    //           },
-    //         },
-    //         {
-    //           model: VentaModel,
-
-    //           where: {
-    //             idVent: Sequelize.col("Venta.id"),
-    //           }
-    //         },
-    //         // {
-    //         //   model: ClienteModel,
-
-    //         //   where: {
-    //         //     idCli: Sequelize.col("Cliente.id"),
-    //         //   },
-    //         // },
-    //       ],
-    //       where: {
-    //         idVent: req.params["id"],
-    //       },
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // } else {
-    //   try {
-    //     ventas = await VentaProducto.findAll({
-    //       include: [
-    //         {
-    //           model: ProductosModel,
-
-    //           where: {
-    //             idProd: Sequelize.col("producto.id"),
-    //           },
-    //         },
-    //         {
-    //           model: VentaModel,
-
-    //           where: {
-    //             idVent: Sequelize.col("Venta.id"),
-    //           },
-    //         },
-    //         // {
-    //         //   model: ClienteModel,
-
-    //         //   where: {
-    //         //     idCli: Sequelize.col("Cliente.id"),
-    //         //   },
-    //         // },
-    //       ],
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-
-    // if (!ventas)
-    //   return res.status(500).send("Ha ocurrido un error al consultar la venta");
-
     let ventas, metadata;
     try {
       [ventas, metadata] = await sequelize.query(`
@@ -99,7 +30,7 @@ class VentasController {
       return res.status(500).send("ha ocurrido un error al consultar las ventas")
     }
 
-    
+
 
     return res.status(200).send(ventas);
   }

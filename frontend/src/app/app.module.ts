@@ -20,10 +20,19 @@ import { HttpClientModule } from '@angular/common/http';
 
 //material
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 //services
 import { UsersService } from './services/users.service';
 import { UtilService } from './services/util.service';
+import { CustomersService } from './services/customers.service';
+import { WarehousesService } from './services/warehouses.service';
+import { ProductsService } from './services/products.service';
+import { SalesService } from './services/sales.service';
+
+import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
+import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +47,9 @@ import { UtilService } from './services/util.service';
     ListWarehousesComponent,
     ListSalesComponent,
     CreateSaleComponent,
+    ListCustomerComponent,
+    CreateCustomerComponent,
+    UpdateCustomerComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +57,17 @@ import { UtilService } from './services/util.service';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
   ],
-  providers: [UsersService, UtilService],
-  bootstrap: [AppComponent]
+  providers: [
+    UsersService,
+    UtilService,
+    CustomersService,
+    WarehousesService,
+    ProductsService,
+    SalesService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
