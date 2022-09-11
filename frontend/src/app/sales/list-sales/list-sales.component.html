@@ -1,1 +1,33 @@
-<p>list-sales works!</p>
+<div class="alignment">
+  <div class="content text-center pt-3">
+    <span class="fs-4 pt-2">Seleccionar Cliente</span>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="this.selectedId">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id"  (click)="searchSalesByCustomer(selectedId)">
+          {{customer.nombre + " " + customer.apellidos}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>    
+  </div>
+</div>
+
+<div class="card-info" *ngIf="showResults">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Email</th>
+        <th scope="col">Documento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of this.customers">
+        <td>{{customer.nombre + " " + customer.apellidos}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.documento}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
