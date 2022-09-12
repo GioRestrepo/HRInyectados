@@ -1,1 +1,37 @@
-<p>view-user works!</p>
+<section class="form">
+  <h4>Registrarse</h4>
+  <input
+    class="controls"
+    type="text"
+    name="Nombre"
+    id="Nombre"
+    [(ngModel)]="data.nombre"
+    placeholder="Ingrese sus nombres"
+  />
+  <input
+    class="controls"
+    type="text"
+    name="Apellidos"
+    id="Apellidos"
+    [(ngModel)]="data.apellidos"
+    placeholder="Ingrese sus apellidos"
+  />
+  <input
+    class="controls"
+    type="email"
+    name="Correo"
+    id="Correo"
+    [(ngModel)]="data.email"
+    placeholder="Ingrese su correo"
+  />
+  <input
+    class="controls"
+    type="password"
+    name="Contraseña"
+    id="Contraseña"
+    [(ngModel)]="data.password"
+    placeholder="Ingrese su contraseña"
+  />
+
+  <input class="botons" type="submit" value="Actualizar" (click)="updateUsuario()" />
+</section>

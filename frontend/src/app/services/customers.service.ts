@@ -22,4 +22,10 @@ export class CustomersService {
       }`
     );
   }
+  deleteCustomer(id: number){
+    return this._httpClient.delete<any>(`${this.env}clientes/${id}`)
+  }
+  updateCustomer(id: number, data: any){
+    return this._httpClient.put<any>(`${this.env}clientes/${id}`, data)
+  }
 }

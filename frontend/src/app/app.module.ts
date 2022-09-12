@@ -16,7 +16,7 @@ import { ListSalesComponent } from './sales/list-sales/list-sales.component';
 import { CreateSaleComponent } from './sales/create-sale/create-sale.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //material
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -35,11 +35,17 @@ import { CustomersService } from './services/customers.service';
 import { WarehousesService } from './services/warehouses.service';
 import { ProductsService } from './services/products.service';
 import { SalesService } from './services/sales.service';
+import { TokenInterceptorService } from "./services/token-interceptor.service";
+
+//guard
+import { AuthGuard } from "./guard/auth.guard";
 
 import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
 import { MainComponent } from './home/main/main.component';
+import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { UpdateWarehouseComponent } from './warehouses/update-warehouse/update-warehouse.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +64,8 @@ import { MainComponent } from './home/main/main.component';
     CreateCustomerComponent,
     UpdateCustomerComponent,
     MainComponent,
+    UpdateProductComponent,
+    UpdateWarehouseComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +87,13 @@ import { MainComponent } from './home/main/main.component';
     WarehousesService,
     ProductsService,
     SalesService,
+    TokenInterceptorService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -30,9 +30,7 @@ export class ListSalesComponent implements OnInit {
       (err) =>{
         this._utilsService.openSnackBarError("Ha ocurrido un error al cargar los clientes")
       }
-    )
-
-    
+    )    
   }
 
 

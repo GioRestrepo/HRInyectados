@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { ListCustomerComponent } from './customers/list-customer/list-customer.component';
 import { UpdateCustomerComponent } from './customers/update-customer/update-customer.component';
+import { AuthGuard } from './guard/auth.guard';
 import { MainComponent } from './home/main/main.component';
 import { CreateProductsComponent } from './products/create-products/create-products.component';
 import { ListProductsComponent } from './products/list-products/list-products.component';
@@ -68,7 +69,7 @@ const routes: Routes = [
   {
     path: 'list-customers',
     component: ListCustomerComponent,
-    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-customer',
@@ -76,7 +77,17 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'update-customer',
+    path: 'update-customer/:id',
+    component: UpdateCustomerComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'update-product/:id',
+    component: UpdateCustomerComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'update-warehouse/:id',
     component: UpdateCustomerComponent,
     pathMatch: 'full',
   },

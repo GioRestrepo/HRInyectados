@@ -1,1 +1,28 @@
-<p>update-customer works!</p>
+<div class="alignment">
+  <div class="content text-center pt-3">
+    <span class="fs-4 pt-2">Registrar Cliente</span>
+    <br>
+    <mat-form-field class="pt-3 pb-2 w-75" appearance="fill">
+      <mat-label>Nombres del cliente</mat-label>
+      <input matInput placeholder="Nombres" [(ngModel)]="customer.nombre" required="true">
+    </mat-form-field>
+    <mat-form-field class="pb-2 w-75" appearance="fill">
+      <mat-label>Apellidos del cliente</mat-label>
+      <input matInput placeholder="Apellidos" [(ngModel)]="customer.apellidos" required="true">
+    </mat-form-field>
+    <mat-form-field class="pb-2 w-75" appearance="fill">
+      <mat-label>Email del cliente</mat-label>
+      <input matInput placeholder="Email" [(ngModel)]="customer.email" required="true">
+    </mat-form-field>
+    <mat-form-field class="pb-2 w-75" appearance="fill">
+      <mat-label>Telefono del cliente</mat-label>
+      <input matInput placeholder="Telefono" [(ngModel)]="customer.telefono" required="true">
+    </mat-form-field>
+    <mat-form-field class="pb-2 w-75" appearance="fill">
+      <mat-label>Identificación</mat-label>
+      <input matInput placeholder="Identificación" [(ngModel)]="customer.documento" required="true">
+    </mat-form-field>
+    <br>
+    <button mat-button class="w-75 mb-2" (click)="createCustomer()">Crear</button>
+  </div>
+</div>

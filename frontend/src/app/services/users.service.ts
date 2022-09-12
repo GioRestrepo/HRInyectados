@@ -13,7 +13,19 @@ export class UsersService {
   createUser(data: any){
     return this._httpClient.post<any>(`${this.env}usuarios`, data);
   }
+  updateUser(data: any){
+    return this._httpClient.put<any>(`${this.env}usuarios`, data);
+  }
   login(data: any){
     return this._httpClient.post<any>(`${this.env}usuarios/login`, data);
+  }
+  getUser(){
+    return this._httpClient.get<any>(`${this.env}usuarios`);
+  }
+  getToken(){
+    return localStorage.getItem('token')
+  }
+  loggedIn() {
+    return !!localStorage.getItem('token');
   }
 }

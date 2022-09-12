@@ -1,1 +1,54 @@
-<p>create-sale works!</p>
+<div class="alignment">
+  <div class="content text-center pt-3">
+    <span class="fs-4 pt-2">Seleccionar Cliente</span>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="this.selectedId" name="cliente">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id">
+          {{customer.nombre + " " + customer.apellidos }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>    
+  </div>
+</div>
+
+<div class="card-info mb-0">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">valor</th>
+        <th scope="col">Bodega</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of this.products">
+        <td>{{product.producto.nombre}}</td>
+        <td>{{product.producto.valor}}</td>
+        <td>{{product.Bodega.nombre}}</td>
+        <td>
+          <button class="btn btn-primary" 
+          [ngClass]="{ 'btn-primary': product.isSelected == true , 'btn-danger': product.isSelected == false}"
+            (click)="changeTotal(product)"
+          >
+            <i class="material-icons">{{
+              product.isSelected == false
+                ? 'playlist_add'
+                : 'playlist_add_check'
+            }}
+            </i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="content alignment">
+    <span class="fs-4 pt-2">Seleccionar Cliente</span>
+    <br>
+    <span class="fs-5 my-1">Total: {{total}}</span>
+    <br>
+    <button mat-button class="w-75 mb-2" (click)="makeSale()">Crear</button>
+  </div>
+</div>
