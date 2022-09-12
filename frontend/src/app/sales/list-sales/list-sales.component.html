@@ -4,9 +4,9 @@
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Cliente</mat-label>
-      <mat-select [(ngModel)]="this.selectedId">
-        <mat-option *ngFor="let customer of customers" [value]="customer.id"  (click)="searchSalesByCustomer(selectedId)">
-          {{customer.nombre + " " + customer.apellidos}}
+      <mat-select [(ngModel)]="this.selectedId" name="cliente">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id"  (click)="searchSalesByCustomer(selectedId)"  >
+          {{customer.nombre + " " + customer.apellidos }}
         </mat-option>
       </mat-select>
     </mat-form-field>    
@@ -18,15 +18,15 @@
     <thead>
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col">Email</th>
-        <th scope="col">Documento</th>
+        <th scope="col">Nombre producto</th>
+        <th scope="col">valor</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of this.customers">
-        <td>{{customer.nombre + " " + customer.apellidos}}</td>
-        <td>{{customer.email}}</td>
-        <td>{{customer.documento}}</td>
+      <tr *ngFor="let sale of this.salesByUser">
+        <td>{{sale.nomCli + " " + sale.apellidos}}</td>
+        <td>{{sale.nomProd}}</td>
+        <td>{{sale.valor}}</td>
       </tr>
     </tbody>
   </table>

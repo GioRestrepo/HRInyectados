@@ -1,3 +1,8 @@
+.card-info{
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
 .content{
   align-self: center;
   width: 20rem;
@@ -16,3 +21,5 @@
 button {
   background-color: #18222c;
 }
+
+
